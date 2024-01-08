@@ -1,0 +1,536 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- PWA Manifext START -->
+  <!-- <link rel="manifest" href="manifest.json" /> -->
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#d3d3d3" />
+  <meta name="theme-color" content="#d3d3d3" />
+  <!-- PWA Manifext END -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Mickael's Myopia Tools</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+  .chart-title {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: SF Pro SC,SF Pro Text,SF Pro Icons,PingFang SC,Helvetica Neue,Helvetica,Arial,sans-serif;
+  }
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KW0P45SRZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KW0P45SRZX');
+  </script>
+
+  <!-- JS + Popper.js bundle, & jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+  <!-- Language Translations n Script -->
+  <script>
+  var currentLang = "";
+
+  function changeLang () {
+    if ( currentLang == "zh-cn") {
+      // currentLang = "zh-tw";
+      currentLang = "en-us";
+    // } else if (currentLang == "zh-tw") {
+    //   currentLang = "en-us";
+    } else if (currentLang == "" || currentLang == "en-us") {
+      currentLang = "zh-cn";
+    }
+    document.getElementById('changeLang').innerHTML = currentLang;
+
+    makeMyopiaChart();
+    makeAxlChart()
+  }
+  </script>
+
+  <!-- Chart.js -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script> -->
+  <script src="chart.min.js"></script>
+
+  <!-- myopiaCalc -->
+  <script src="myopiaCalc-beta.js">
+  console.log('running myopiaCalc-beta.js')</script>
+
+  <!-- Chart Scripts -->
+  <script>
+    Chart.defaults.font.family = '"SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif'
+    //Chart.defaults.global.defaultFontFamily = "sans-serif"//"'Roboto', 'Helvetica Neue', 'Helvetica', sans-serif"
+    var axlPx = {
+      backgroundColor: 'rgba(255,0,0,1)',
+      borderColor: 'rgba(255,0,0,1)',
+      fill: false,
+      borderWidth: 1,
+      pointRadius: 5,
+      pointHitRadius: 0,
+      label:"Child(孩童)",
+      data: []
+    }
+    var axl75 = {
+      borderColor: 'rgba(0,0,0,1)',
+      fill: false,
+      borderDash: [5,5],
+      borderWidth: 1,
+      pointRadius: 0,
+      pointHitRadius: 0,
+      label:"75%",
+      data: []
+    }
+    var axl50 = {
+      borderColor: 'rgba(0,0,0,1)',
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 0,
+      pointHitRadius: 0,
+      label:"50%",
+      data: []
+    }
+    var axl25 = {
+      borderColor: 'rgba(0,0,0,1)',
+      fill: false,
+      borderDash: [5,5],
+      borderWidth: 1,
+      pointRadius: 0,
+      pointHitRadius: 0,
+      label:"25%",
+      data: []
+    }
+    // var axl75a = {
+    //   borderColor: 'rgba(0,0,255,1)',
+    //   fill: false,
+    //   borderDash: [5,5],
+    //   borderWidth: 1,
+    //   pointRadius: 0,
+    //   pointHitRadius: 0,
+    //   label:"75%",
+    //   data: []
+    // }
+    // var axl50a = {
+    //   borderColor: 'rgba(0,0,255,1)',
+    //   fill: false,
+    //   borderWidth: 2,
+    //   pointRadius: 0,
+    //   pointHitRadius: 0,
+    //   label:"50%",
+    //   data: []
+    // }
+    // var axl25a = {
+    //   borderColor: 'rgba(0,0,255,1)',
+    //   fill: false,
+    //   borderDash: [5,5],
+    //   borderWidth: 1,
+    //   pointRadius: 0,
+    //   pointHitRadius: 0,
+    //   label:"25%",
+    //   data: []
+    // }
+
+    var axlData = {
+      //Data from: http://reviewofmm.com/the-gold-standard-monitoring-myopia-progression-via-measuring-axial-length/
+      //Tideman, J. W. L., Polling, J. R., Vingerling, J. R., Jaddoe, V. W., Williams, C., Guggenheim, J. A., & Klaver, C. C. (2018). Axial length growth and the risk of developing myopia in European children. Acta ophthalmologica, 96(3), 301-309.
+      //Diez, P. S., Yang, L. H., Lu, M. X., Wahl, S., & Ohlendorf, A. (2019). Growth curves of myopia-related parameters to clinically monitor the refractive development in Chinese schoolchildren. Graefe’s Archive for Clinical and Experimental Ophthalmology, 257(5), 1045-1053.
+      EuMale: {
+        // "25": [22.14, 22.83, 23.17],
+        // "50": [22.59, 23.31, 23.65],
+        // "75": [23.01, 23.79, 24.21]
+        "25": [{x: 6, y:22.14}, {x: 9, y:22.83}, {x: 15, y:23.17}],
+        "50": [{x: 6, y:22.59}, {x: 9, y:23.31}, {x: 15, y:23.65}],
+        "75": [{x: 6, y:23.01}, {x: 9, y:23.79}, {x: 15, y:24.21}]
+
+      },
+      EuFemale: {
+        "25": [{x: 6, y:21.66}, {x: 9, y:22.33}, {x: 15, y:22.68}],
+        "50": [{x: 6, y:22.06}, {x: 9, y:22.79}, {x: 15, y:23.15}],
+        "75": [{x: 6, y:22.49}, {x: 9, y:23.25}, {x: 15, y:23.65}]
+      },
+      CnMale: {
+        "25": [{x: 6, y:22.55}, {x: 9, y:23.7}, {x: 15, y:24.39}],
+        "50": [{x: 6, y:22.99}, {x: 9, y:24.32}, {x: 15, y:25.01}],
+        "75": [{x: 6, y:23.5}, {x: 9, y:24.89}, {x: 15, y:25.8}]
+      },
+      CnFemale: {
+        "25" :[{x: 6, y:22.03}, {x: 9, y:23.16}, {x: 15, y:23.83}],
+        "50" :[{x: 6, y:22.54}, {x: 9, y:23.72}, {x: 15, y:24.37}],
+        "75" :[{x: 6, y:23.04}, {x: 9, y:24.31}, {x: 15, y:25.2}]
+
+      }
+    }
+
+    var axlConfig = {
+      type: 'line',
+      data: {
+        labels: [5,6,7,8,9,10,11,12,13,14,15,16],
+        datasets: []
+      },
+      options: {
+        interaction: {
+            mode: 'nearest',
+            intersect: false
+        },
+        plugins:{
+          tooltip:{
+            enabled: false,
+            displayColors: true,
+            usePointStyle: false,
+            filter: function(item) {
+              return !item.label.includes('xxx');
+            },
+            callbacks: {
+              labelColor: function(context) {
+                test2 = context;
+                return {
+                            borderColor: 'rgba(255,255,255)',//context.dataset.borderColor,
+                            backgroundColor: context.dataset.borderColor
+                        };
+              },
+              label: function(context) {
+                //test2 = context;
+                return context.dataset.label+": "+parseFloat(context.formattedValue).toFixed(2);
+              },
+              title: function(context) {
+                //test = context;
+                //console.log(context.label);
+                if ( currentLang == "zh-cn") {
+                  return context[0].label+"岁";
+                } else if (currentLang == "zh-tw") {
+                  return context[0].label+"歲";
+                } else {
+                  return context[0].label+"YO";
+                }
+              },
+            }
+          },
+          legend:{
+            position: "top",
+            // onHover: function(event, legendItem) {
+            //   console.log(legendItem);
+            // },
+            labels: {
+              filter: function(item) {
+                return !item.text.includes('(');
+              }
+            }
+          },
+          title: {
+            font: {size: 16},
+            lineHeight: 1.5,
+            display: true,
+            text: ""
+          }
+        },
+        aspectRatio: 1,
+        scales: {
+          x: {
+            min: 5,
+            display: true,
+            scaleLabel: {
+              display: true,
+                font: {size: 16},
+              labelString: "Age(年龄)"
+            },
+            ticks: {
+              beginAtZero: false,
+              stepSize: 1
+            }
+          },
+          y: {
+            min: 21,
+            max: 26,
+            display: true,
+            reverse: false,
+            scaleLabel: {
+              display: true,
+              font: {size: 16},
+              labelString: "Axial Length(眼轴)"
+            },
+            ticks: {
+              beginAtZero: false,
+              stepSize: 0.2
+            }
+          }
+        }
+      }
+    };
+
+    function makeAxlChart() {
+      let age = parseFloat(document.getElementById('axlAgeSelect').value);
+      let length = parseFloat(document.getElementById('axlAxlSelect').value);
+      let region = document.getElementById('axlPxRegionSexSelect').value;
+      populateAxl (age,length,region)
+
+    }
+    var axlConfigMale = JSON.parse(JSON.stringify(axlConfig));
+    var axlConfigFemale = JSON.parse(JSON.stringify(axlConfig));
+
+    function populateAxl(pxAge,pxAxl,region) {
+      axlConfigMale.data.datasets = [];
+      axlConfigFemale.data.datasets = [];
+      axlPx.data = [{x:pxAge,y:pxAxl}];
+      let axlm25 = JSON.parse(JSON.stringify(axl25));
+      let axlm50 = JSON.parse(JSON.stringify(axl50));
+      let axlm75 = JSON.parse(JSON.stringify(axl75));
+      let axlf25 = JSON.parse(JSON.stringify(axl25));
+      let axlf50 = JSON.parse(JSON.stringify(axl50));
+      let axlf75 = JSON.parse(JSON.stringify(axl75));
+      axlm25.data = axlData[region+"Male"]["25"];
+      axlm50.data = axlData[region+"Male"]["50"];
+      axlm75.data = axlData[region+"Male"]["75"];
+      axlm25.borderColor = 'rgb(0,191,255)'
+      axlm50.borderColor = 'rgb(0,191,255)'
+      axlm75.borderColor = 'rgb(0,191,255)'
+      axlf25.data = axlData[region+"Female"]["25"];
+      axlf50.data = axlData[region+"Female"]["50"];
+      axlf75.data = axlData[region+"Female"]["75"];
+      axlf25.borderColor = 'rgb(255,105,180)'
+      axlf50.borderColor = 'rgb(255,105,180)'
+      axlf75.borderColor = 'rgb(255,105,180)'
+      // axl25a.data = axlData["CnMale"]["25"];
+      // axl50a.data = axlData["CnMale"]["50"];
+      // axl75a.data = axlData["CnMale"]["75"];
+      axlConfigMale.data.datasets.push(axlPx);
+      axlConfigMale.data.datasets.push(axlm25);
+      axlConfigMale.data.datasets.push(axlm50);
+      axlConfigMale.data.datasets.push(axlm75);
+      axlConfigMale.options.plugins.title.text = "Male(男)";
+      axlConfigFemale.data.datasets.push(axlPx);
+      axlConfigFemale.data.datasets.push(axlf25);
+      axlConfigFemale.data.datasets.push(axlf50);
+      axlConfigFemale.data.datasets.push(axlf75);
+      axlConfigFemale.options.plugins.title.text = "Female(女)";
+      // axlConfig.data.datasets.push(axl25a);
+      // axlConfig.data.datasets.push(axl50a);
+      // axlConfig.data.datasets.push(axl75a);
+      axlChartMale.update();
+      axlChartFemale.update();
+    }
+  </script>
+  <!-- AMP Analytics --><script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+</head>
+  <!-- Google Tag Manager -->
+  <amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-MFDFL3T&gtm.url=SOURCE_URL" data-credentials="include"></amp-analytics>
+
+<body>
+  <div class="container w-auto">
+    <nav class="navbar navbar-light bg-light bg-gradient">
+      <div class="container-fluid">
+        <a class="navbar-brand" id="pagename"></a>
+        <span class="d-flex">
+          <a class="mx-2 btn align-content-center btn-sm btn-outline-secondary border-0 disabled">v1.1</a>
+          <button id="changeLang" onclick="changeLang()" class="border border-secondary align-content-center btn-sm btn-outline-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+          </svg></button>
+        </span>
+      </div>
+    </nav>
+    <!-- Myopia Progression Chart -->
+    <div class="card p-3">
+      <canvas id="myoChart" width="100%" aspectRatio="1"></canvas>
+    </div>
+    <div class="card">
+      <div class="row p-3">
+        <div class="col">
+          <div class="input-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="pxAge">Age(年龄)</span>
+            </div>
+            <select class="form-control" id="ageSelect" aria-label="age select" aria-describedby="pxAge" onchange="makeMyopiaChart()">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7" selected>7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <!-- <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option> -->
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="pxRx">Myopia(近视)</span>
+            </div>
+            <select class="form-control" id="rxSelect" aria-label="rx select" aria-describedby="pxRx" onchange="makeMyopiaChart()">
+              <option value="0.00">0.00</option><option value="-0.25">-0.25</option><option value="-0.50">-0.50</option><option value="-0.75" selected>-0.75</option>
+              <option value="-1.00">-1.00</option><option value="-1.25">-1.25</option><option value="-1.50">-1.50</option><option value="-1.75">-1.75</option>
+              <option value="-2.00">-2.00</option><option value="-2.25">-2.25</option><option value="-2.50">-2.50</option><option value="-2.75">-2.75</option>
+              <option value="-3.00">-3.00</option><option value="-3.25">-3.25</option><option value="-3.50">-3.50</option><option value="-3.75">-3.75</option>
+              <option value="-4.00">-4.00</option><option value="-4.25">-4.25</option><option value="-4.50">-4.50</option><option value="-4.75">-4.75</option>
+              <option value="-5.00">-5.00</option><option value="-5.25">-5.25</option><option value="-5.50">-5.50</option><option value="-5.75">-5.75</option>
+              <option value="-6.00">-6.00</option><option value="-6.25">-6.25</option><option value="-6.50">-6.50</option><option value="-6.75">-6.75</option>
+              <option value="-7.00">-7.00</option><option value="-7.25">-7.25</option><option value="-7.50">-7.50</option><option value="-7.75">-7.75</option>
+              <option value="-8.00">-8.00</option><option value="-8.25">-8.25</option><option value="-8.50">-8.50</option><option value="-8.75">-8.75</option>
+              <option value="-9.00">-9.00</option><option value="-9.25">-9.25</option><option value="-9.50">-9.50</option><option value="-9.75">-9.75</option>
+              <option value="-10.00">-10.00</option><option value="-10.25">-10.25</option><option value="-10.50">-10.50</option><option value="-10.75">-10.75</option>
+              <option value="-11.00">-11.00</option><option value="-11.25">-11.25</option><option value="-11.50">-11.50</option><option value="-11.75">-11.75</option>
+              <option value="-12.00">-12.00</option><option value="-12.25">-12.25</option><option value="-12.50">-12.50</option><option value="-12.75">-12.75</option>
+              <option value="-13.00">-13.00</option><option value="-13.25">-13.25</option><option value="-13.50">-13.50</option><option value="-13.75">-13.75</option>
+              <option value="-14.00">-14.00</option><option value="-14.25">-14.25</option><option value="-14.50">-14.50</option><option value="-14.75">-14.75</option>
+              <option value="-15.00">-15.00</option><option value="-15.25">-15.25</option><option value="-15.50">-15.50</option><option value="-15.75">-15.75</option>
+              <option value="-16.00">-16.00</option><option value="-16.25">-16.25</option><option value="-16.50">-16.50</option><option value="-16.75">-16.75</option>
+              <option value="-17.00">-17.00</option><option value="-17.25">-17.25</option><option value="-17.50">-17.50</option><option value="-17.75">-17.75</option>
+              <option value="-18.00">-18.00</option><option value="-18.25">-18.25</option><option value="-18.50">-18.50</option><option value="-18.75">-18.75</option>
+              <option value="-19.00">-19.00</option><option value="-19.25">-19.25</option><option value="-19.50">-19.50</option><option value="-19.75">-19.75</option>
+              <option value="-20.00">-20.00</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="pxMaxAge">Max Age(最高年龄)</span>
+            </div>
+            <select class="form-control" id="maxAgeSelect" aria-label="maxAge select" aria-describedby="pxMaxAge" onchange="makeMyopiaChart()">
+              <option value=16>16</option>
+              <option value=20 selected>20</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Age And Axial Length Chart -->
+    <div>
+      <div class="card p-3">
+        <div class="row">
+          <row class="col text-center chart-title" style="">
+            Age and Axial Length (年龄眼轴平均表)
+          </row>
+        </div>
+        <div class="row">
+          <div class="col">
+            <canvas id="axlChartMale" width="100%" aspectRatio="1"></canvas>
+          </div>
+          <div class="col">
+            <canvas id="axlChartFemale" width="100%" aspectRatio="1"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row px-3 pt-3">
+          <div class="col">
+            <div class="input-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="axlPxAge">Age(年龄)</span>
+              </div>
+              <select class="form-control" id="axlAgeSelect" aria-label="age select" aria-describedby="axlPxAge" onchange="makeAxlChart()">
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7" selected>7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="axlPxAxl">Axial Length(眼轴长)</span>
+              </div>
+              <input class="form-control" type="number" id="axlAxlSelect" aria-label="axl select" aria-describedby="axlPxAxl" onchange="makeAxlChart()">
+            </div>
+          </div>
+        </div>
+        <div class="row px-3 pb-3">
+          <div class="col">
+            <div class="input-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="axlPxRegionSex">Race(血統)</span>
+              </div>
+              <select class="form-control" id="axlPxRegionSexSelect" aria-label="region select" aria-describedby="axlPxRegionSex" onchange="makeAxlChart()">
+                <option value="Cn" selected>Chinese(华族)</option>
+                <option value="Eu">European(欧洲)</option>
+                <!-- <option value="CnFemale">CN Female(华族女性)</option>
+                <option value="CnMale">CN Male(华族男性)</option>
+                <option value="EuFemale">EU Female(欧洲女性)</option>
+                <option value="EuMale">EU Male(欧洲男性)</option> -->
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header btn text-start" type="button" data-bs-toggle="collapse" data-bs-target="#references" aria-expanded="false" aria-controls="references" onclick="document.getElementById('references').scrollIntoView();">
+        References
+      </div>
+      <div class="card-body collapse" id="references" >
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item">Myopia Vs Myopia Control Calculator(近视与近视防控计算表)
+            <small class="fst-italic text-muted"><ul>
+              <li>Padmaja Sankaridurg, Brien A Holden, Leslie A Donovan, Chi-ho To, Wei Han Chua, Li Li, Xiang Chen; An Annual Rate of Myopic Progression Model for Asian children. Invest. Ophthalmol. Vis. Sci. 2014;55(13):3629.</li>
+              <li>Philip K. What’s New in Spectacle Lenses for Myopia Management? - Review of Myopia Management [Internet]. Review of Myopia Management. 2021 [cited 7 July 2021]. Available from: https://reviewofmm.com/whats-new-in-spectacle-lenses-for-myopia-management/</li>
+              <li>Lee YC, Wang JH, Chiu CJ. Effect of orthokeratology on myopia progression: twelve-year results of a retrospective cohort study. BMC ophthalmology. 2017 Dec;17(1):1-8.</li>
+            </ul></small>
+          </li>
+          <li class="list-group-item">Age and Axial Length (年龄眼轴平均表)
+            <small class="fst-italic text-muted"><ul>
+              <li>Tideman, J. W. L., Polling, J. R., Vingerling, J. R., Jaddoe, V. W., Williams, C., Guggenheim, J. A., & Klaver, C. C. (2018). Axial length growth and the risk of developing myopia in European children. Acta ophthalmologica, 96(3), 301-309.</li>
+              <li>Diez, P. S., Yang, L. H., Lu, M. X., Wahl, S., & Ohlendorf, A. (2019). Growth curves of myopia-related parameters to clinically monitor the refractive development in Chinese schoolchildren. Graefe’s Archive for Clinical and Experimental Ophthalmology, 257(5), 1045-1053.</li>
+            </ul></small>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</body>
+<footer>
+  <script>
+    var myoChart;
+    var axlChartMale;
+    var axlChartFemale;
+    //on document load
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('pagename').text = document.title;
+      myoChart = new Chart(document.getElementById('myoChart').getContext('2d'), myoConfig);
+      axlChartMale = new Chart(document.getElementById('axlChartMale').getContext('2d'), axlConfigMale);
+      axlChartFemale = new Chart(document.getElementById('axlChartFemale').getContext('2d'), axlConfigFemale);
+    });
+  </script>
+
+</footer>
+
+</html>

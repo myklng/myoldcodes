@@ -1,0 +1,507 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- PWA Manifext START -->
+  <!-- <link rel="manifest" href="manifest.json" /> -->
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
+  <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#d3d3d3" />
+  <meta name="theme-color" content="#d3d3d3" />
+  <!-- PWA Manifext END -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SiteGround System Page Coming Soon</title>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <!-- Chart.js -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script> -->
+  <script src="chart.min.js"></script>
+
+  <!-- myopiaCalac -->
+  <script src="myopiaCalc.js"></script>
+
+  <script>
+    Chart.defaults.font.family = '"SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif'
+    //Chart.defaults.global.defaultFontFamily = "sans-serif"//"'Roboto', 'Helvetica Neue', 'Helvetica', sans-serif"
+    var axlPx = {
+      backgroundColor: 'rgba(255,0,0,1)',
+      borderColor: 'rgba(255,0,0,1)',
+      fill: false,
+      borderWidth: 1,
+      pointRadius: 5,
+      pointHitRadius: 0,
+      label:"Child(孩童)",
+      data: []
+    }
+    var axl75 = {
+      borderColor: 'rgba(0,0,0,1)',
+      fill: false,
+      borderDash: [5,5],
+      borderWidth: 1,
+      pointRadius: 0,
+      pointHitRadius: 0,
+      label:"75%",
+      data: []
+    }
+    var axl50 = {
+      borderColor: 'rgba(0,0,0,1)',
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 0,
+      pointHitRadius: 0,
+      label:"50%",
+      data: []
+    }
+    var axl25 = {
+      borderColor: 'rgba(0,0,0,1)',
+      fill: false,
+      borderDash: [5,5],
+      borderWidth: 1,
+      pointRadius: 0,
+      pointHitRadius: 0,
+      label:"25%",
+      data: []
+    }
+    // var axl75a = {
+    //   borderColor: 'rgba(0,0,255,1)',
+    //   fill: false,
+    //   borderDash: [5,5],
+    //   borderWidth: 1,
+    //   pointRadius: 0,
+    //   pointHitRadius: 0,
+    //   label:"75%",
+    //   data: []
+    // }
+    // var axl50a = {
+    //   borderColor: 'rgba(0,0,255,1)',
+    //   fill: false,
+    //   borderWidth: 2,
+    //   pointRadius: 0,
+    //   pointHitRadius: 0,
+    //   label:"50%",
+    //   data: []
+    // }
+    // var axl25a = {
+    //   borderColor: 'rgba(0,0,255,1)',
+    //   fill: false,
+    //   borderDash: [5,5],
+    //   borderWidth: 1,
+    //   pointRadius: 0,
+    //   pointHitRadius: 0,
+    //   label:"25%",
+    //   data: []
+    // }
+    var axlData = {
+      EuMale: {
+        // "25": [22.14, 22.83, 23.17],
+        // "50": [22.59, 23.31, 23.65],
+        // "75": [23.01, 23.79, 24.21]
+        "25": [{x: 6, y:22.14}, {x: 9, y:22.83}, {x: 15, y:23.17}],
+        "50": [{x: 6, y:22.59}, {x: 9, y:23.31}, {x: 15, y:23.65}],
+        "75": [{x: 6, y:23.01}, {x: 9, y:23.79}, {x: 15, y:24.21}]
+
+      },
+      EuFemale: {
+        "25": [{x: 6, y:21.66}, {x: 9, y:22.33}, {x: 15, y:22.68}],
+        "50": [{x: 6, y:22.06}, {x: 9, y:22.79}, {x: 15, y:23.15}],
+        "75": [{x: 6, y:22.49}, {x: 9, y:23.25}, {x: 15, y:23.65}]
+      },
+      CnMale: {
+        "25": [{x: 6, y:22.55}, {x: 9, y:23.7}, {x: 15, y:24.39}],
+        "50": [{x: 6, y:22.99}, {x: 9, y:24.32}, {x: 15, y:25.01}],
+        "75": [{x: 6, y:23.5}, {x: 9, y:24.89}, {x: 15, y:25.8}]
+      },
+      CnFemale: {
+        "25" :[{x: 6, y:22.03}, {x: 9, y:23.16}, {x: 15, y:23.83}],
+        "50" :[{x: 6, y:22.54}, {x: 9, y:23.72}, {x: 15, y:24.37}],
+        "75" :[{x: 6, y:23.04}, {x: 9, y:24.31}, {x: 15, y:25.2}]
+
+      }
+    }
+    var axlConfig = {
+      type: 'line',
+      data: {
+        labels: [5,6,7,8,9,10,11,12,13,14,15,16],
+        datasets: []
+      },
+      options: {
+        interaction: {
+            mode: 'nearest',
+            intersect: false
+        },
+        plugins:{
+          tooltip:{
+            enabled: false,
+            displayColors: true,
+            usePointStyle: false,
+            filter: function(item) {
+              return !item.label.includes('xxx');
+            },
+            callbacks: {
+              labelColor: function(context) {
+                test2 = context;
+                return {
+                            borderColor: 'rgba(255,255,255)',//context.dataset.borderColor,
+                            backgroundColor: context.dataset.borderColor
+                        };
+              },
+              label: function(context) {
+                //test2 = context;
+                return context.dataset.label+": "+parseFloat(context.formattedValue).toFixed(2);
+              },
+              title: function(context) {
+                //test = context;
+                //console.log(context.label);
+                return context[0].label+"岁";
+              },
+            }
+          },
+          legend:{
+            position: "top",
+            // onHover: function(event, legendItem) {
+            //   console.log(legendItem);
+            // },
+            labels: {
+              filter: function(item) {
+                return !item.text.includes('(');
+              }
+            }
+          },
+          title: {
+            font: {size: 20},
+            lineHeight: 1.5,
+            display: true,
+            text: ""
+          }
+        },
+        aspectRatio: 1,
+        scales: {
+          x: {
+            min: 5,
+            display: true,
+            scaleLabel: {
+              display: true,
+                font: {size: 16},
+              labelString: "Age(年龄)"
+            },
+            ticks: {
+              beginAtZero: false,
+              stepSize: 1
+            }
+          },
+          y: {
+            min: 21,
+            max: 26,
+            display: true,
+            reverse: false,
+            scaleLabel: {
+              display: true,
+              font: {size: 16},
+              labelString: "Axial Length(眼轴)"
+            },
+            ticks: {
+              beginAtZero: false,
+              stepSize: 0.2
+            }
+          }
+        }
+      }
+    };
+
+    function makeAxlChart() {
+      let age = parseFloat(document.getElementById('axlAgeSelect').value);
+      let length = parseFloat(document.getElementById('axlAxlSelect').value);
+      let region = document.getElementById('axlPxRegionSexSelect').value;
+      populateAxl (age,length,region)
+
+    }
+    var axlConfigMale = JSON.parse(JSON.stringify(axlConfig));
+    var axlConfigFemale = JSON.parse(JSON.stringify(axlConfig));
+
+    function populateAxl(pxAge,pxAxl,region) {
+      axlConfigMale.data.datasets = [];
+      axlConfigFemale.data.datasets = [];
+      axlPx.data = [{x:pxAge,y:pxAxl}];
+      let axlm25 = JSON.parse(JSON.stringify(axl25));
+      let axlm50 = JSON.parse(JSON.stringify(axl50));
+      let axlm75 = JSON.parse(JSON.stringify(axl75));
+      let axlf25 = JSON.parse(JSON.stringify(axl25));
+      let axlf50 = JSON.parse(JSON.stringify(axl50));
+      let axlf75 = JSON.parse(JSON.stringify(axl75));
+      axlm25.data = axlData[region+"Male"]["25"];
+      axlm50.data = axlData[region+"Male"]["50"];
+      axlm75.data = axlData[region+"Male"]["75"];
+      axlm25.borderColor = 'rgb(0,191,255)'
+      axlm50.borderColor = 'rgb(0,191,255)'
+      axlm75.borderColor = 'rgb(0,191,255)'
+      axlf25.data = axlData[region+"Female"]["25"];
+      axlf50.data = axlData[region+"Female"]["50"];
+      axlf75.data = axlData[region+"Female"]["75"];
+      axlf25.borderColor = 'rgb(255,105,180)'
+      axlf50.borderColor = 'rgb(255,105,180)'
+      axlf75.borderColor = 'rgb(255,105,180)'
+      // axl25a.data = axlData["CnMale"]["25"];
+      // axl50a.data = axlData["CnMale"]["50"];
+      // axl75a.data = axlData["CnMale"]["75"];
+      axlConfigMale.data.datasets.push(axlPx);
+      axlConfigMale.data.datasets.push(axlm25);
+      axlConfigMale.data.datasets.push(axlm50);
+      axlConfigMale.data.datasets.push(axlm75);
+      axlConfigFemale.data.datasets.push(axlPx);
+      axlConfigFemale.data.datasets.push(axlf25);
+      axlConfigFemale.data.datasets.push(axlf50);
+      axlConfigFemale.data.datasets.push(axlf75);
+      // axlConfig.data.datasets.push(axl25a);
+      // axlConfig.data.datasets.push(axl50a);
+      // axlConfig.data.datasets.push(axl75a);
+      axlChartMale.update();
+      axlChartFemale.update();
+    }
+  </script>
+
+</head>
+<body>
+  <div class="container w-auto">
+    <div class="card p-3">
+      <canvas id="myoChart" width="100%" aspectRatio="1"></canvas>
+    </div>
+    <div class="card">
+      <div class="row p-3">
+        <div class="col">
+          <div class="input-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="pxAge">Age(年龄)</span>
+            </div>
+            <select class="form-control" id="ageSelect" aria-label="age select" aria-describedby="pxAge" onchange="makeMyopiaChart()">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7" selected>7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="pxRx">Myopia(近视)</span>
+            </div>
+            <select class="form-control" id="rxSelect" aria-label="rx select" aria-describedby="pxRx" onchange="makeMyopiaChart()">
+              <option value="0.00">0.00</option>
+              <option value="-0.25">-0.25</option>
+              <option value="-0.50">-0.50</option>
+              <option value="-0.75">-0.75</option>
+              <option value="-1.00">-1.00</option>
+              <option value="-1.25">-1.25</option>
+              <option value="-1.50">-1.50</option>
+              <option value="-1.75">-1.75</option>
+              <option value="-2.00">-2.00</option>
+              <option value="-2.25">-2.25</option>
+              <option value="-2.50">-2.50</option>
+              <option value="-2.75">-2.75</option>
+              <option value="-3.00">-3.00</option>
+              <option value="-3.25">-3.25</option>
+              <option value="-3.50">-3.50</option>
+              <option value="-3.75">-3.75</option>
+              <option value="-4.00">-4.00</option>
+              <option value="-4.25">-4.25</option>
+              <option value="-4.50">-4.50</option>
+              <option value="-4.75">-4.75</option>
+              <option value="-5.00">-5.00</option>
+              <option value="-5.25">-5.25</option>
+              <option value="-5.50">-5.50</option>
+              <option value="-5.75">-5.75</option>
+              <option value="-6.00">-6.00</option>
+              <option value="-6.25">-6.25</option>
+              <option value="-6.50">-6.50</option>
+              <option value="-6.75">-6.75</option>
+              <option value="-7.00">-7.00</option>
+              <option value="-7.25">-7.25</option>
+              <option value="-7.50">-7.50</option>
+              <option value="-7.75">-7.75</option>
+              <option value="-8.00">-8.00</option>
+              <option value="-8.25">-8.25</option>
+              <option value="-8.50">-8.50</option>
+              <option value="-8.75">-8.75</option>
+              <option value="-9.00">-9.00</option>
+              <option value="-9.25">-9.25</option>
+              <option value="-9.50">-9.50</option>
+              <option value="-9.75">-9.75</option>
+              <option value="-10.00">-10.00</option>
+              <option value="-10.25">-10.25</option>
+              <option value="-10.50">-10.50</option>
+              <option value="-10.75">-10.75</option>
+              <option value="-11.00">-11.00</option>
+              <option value="-11.25">-11.25</option>
+              <option value="-11.50">-11.50</option>
+              <option value="-11.75">-11.75</option>
+              <option value="-12.00">-12.00</option>
+              <option value="-12.25">-12.25</option>
+              <option value="-12.50">-12.50</option>
+              <option value="-12.75">-12.75</option>
+              <option value="-13.00">-13.00</option>
+              <option value="-13.25">-13.25</option>
+              <option value="-13.50">-13.50</option>
+              <option value="-13.75">-13.75</option>
+              <option value="-14.00">-14.00</option>
+              <option value="-14.25">-14.25</option>
+              <option value="-14.50">-14.50</option>
+              <option value="-14.75">-14.75</option>
+              <option value="-15.00">-15.00</option>
+              <option value="-15.25">-15.25</option>
+              <option value="-15.50">-15.50</option>
+              <option value="-15.75">-15.75</option>
+              <option value="-16.00">-16.00</option>
+              <option value="-16.25">-16.25</option>
+              <option value="-16.50">-16.50</option>
+              <option value="-16.75">-16.75</option>
+              <option value="-17.00">-17.00</option>
+              <option value="-17.25">-17.25</option>
+              <option value="-17.50">-17.50</option>
+              <option value="-17.75">-17.75</option>
+              <option value="-18.00">-18.00</option>
+              <option value="-18.25">-18.25</option>
+              <option value="-18.50">-18.50</option>
+              <option value="-18.75">-18.75</option>
+              <option value="-19.00">-19.00</option>
+              <option value="-19.25">-19.25</option>
+              <option value="-19.50">-19.50</option>
+              <option value="-19.75">-19.75</option>
+              <option value="-20.00">-20.00</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="pxMaxAge">Max Age(最高年龄)</span>
+            </div>
+            <select class="form-control" id="maxAgeSelect" aria-label="maxAge select" aria-describedby="pxMaxAge" onchange="makeMyopiaChart()">
+              <option value=15>15岁</option>
+              <option value=24 selected>24岁</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card p-3">
+        <div class="row">
+          <row class="col text-center " style="font-weight: bold; font-size: 20px; font-family: SF Pro SC,SF Pro Text,SF Pro Icons,PingFang SC,Helvetica Neue,Helvetica,Arial,sans-serif;">
+            Age and Axial Length (年龄眼轴平均表)
+          </row>
+        </div>
+        <div class="row">
+          <div class="col">
+            <canvas id="axlChartMale" width="100%" aspectRatio="1"></canvas>
+          </div>
+          <div class="col">
+            <canvas id="axlChartFemale" width="100%" aspectRatio="1"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row px-3 pt-3">
+          <div class="col">
+            <div class="input-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="axlPxAge">Age(年龄)</span>
+              </div>
+              <select class="form-control" id="axlAgeSelect" aria-label="age select" aria-describedby="axlPxAge" onchange="makeAxlChart()">
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7" selected>7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="axlPxAxl">Axial Length(眼轴)</span>
+              </div>
+              <input class="form-control" type="number" id="axlAxlSelect" aria-label="axl select" aria-describedby="axlPxAxl" onchange="makeAxlChart()">
+            </div>
+          </div>
+        </div>
+        <div class="row px-3 pb-3">
+          <div class="col">
+            <div class="input-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="axlPxRegionSex">Race(种族2)</span>
+              </div>
+              <select class="form-control" id="axlPxRegionSexSelect" aria-label="region select" aria-describedby="axlPxRegionSex" onchange="makeAxlChart()">
+                <option value="Cn" selected>CN(华族)</option>
+                <option value="Eu">EU(欧洲)</option>
+                <!-- <option value="CnFemale">CN Female(华族女性)</option>
+                <option value="CnMale">CN Male(华族男性)</option>
+                <option value="EuFemale">EU Female(欧洲女性)</option>
+                <option value="EuMale">EU Male(欧洲男性)</option> -->
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<footer>
+  <script>
+    var myoChart;
+    var axlChartMale;
+    var axlChartFemale;
+    //on document load
+    document.addEventListener('DOMContentLoaded', function() {
+      myoChart = new Chart(document.getElementById('myoChart').getContext('2d'), myoConfig);
+      axlChartMale = new Chart(document.getElementById('axlChartMale').getContext('2d'), axlConfigMale);
+      axlChartFemale = new Chart(document.getElementById('axlChartFemale').getContext('2d'), axlConfigFemale);
+    });
+  </script>
+
+</footer>
+
+</html>
